@@ -4,3 +4,7 @@ __pycache__/
 .env
 .ipynb_checkpoints/
 .DS_Store
+model_output/
+model_output_short/
+model_output_medium/
+model_output_long/

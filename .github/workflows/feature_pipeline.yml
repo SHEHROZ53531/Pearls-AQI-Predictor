@@ -3,7 +3,7 @@ name: Hourly Feature Pipeline
 on:
   schedule:
     - cron: "0 * * * *"   # runs at minute 0 of every hour, every day
-  workflow_dispatch:        # lets you manually trigger it from GitHub's UI too
+  workflow_dispatch:
 
 jobs:
   run-feature-pipeline:
@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      -- name: Run feature pipeline
+      - name: Run feature pipeline
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
         run: python feature_pipeline/fetch_and_store_features.py

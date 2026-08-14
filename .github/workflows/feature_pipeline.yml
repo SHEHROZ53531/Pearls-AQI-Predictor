@@ -21,9 +21,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run feature pipeline
+      -- name: Run feature pipeline
         env:
-          AQICN_TOKEN: ${{ secrets.AQICN_TOKEN }}
-          HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
-          HOPSWORKS_PROJECT: ${{ secrets.HOPSWORKS_PROJECT }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
         run: python feature_pipeline/fetch_and_store_features.py

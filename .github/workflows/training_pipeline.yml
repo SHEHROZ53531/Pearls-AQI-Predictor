@@ -21,8 +21,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run training pipeline
+      - - name: Run training pipeline
         env:
-          HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
-          HOPSWORKS_PROJECT: ${{ secrets.HOPSWORKS_PROJECT }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
         run: python training_pipeline/train_model.py

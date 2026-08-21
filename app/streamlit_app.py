@@ -403,7 +403,7 @@ def render_shap_explanation(history_df: pd.DataFrame, model_bundles: dict):
         st.markdown('</div>', unsafe_allow_html=True)
         return
 
-    recent_rows = history_df[MODEL_FEATURE_COLUMNS].ffill().tail(150).copy()
+    recent_rows = history_df[MODEL_FEATURE_COLUMNS].ffill().tail(400).copy()
     recent_rows["horizon"] = 12
     background_scaled = bundle["scaler"].transform(recent_rows)
 

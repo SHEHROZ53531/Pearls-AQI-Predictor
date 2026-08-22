@@ -212,15 +212,27 @@ def render_home_page():
                 </div>""", unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
-    col1, col2 = st.columns([2, 1])
-    with col1:
-        if st.button("Explore Dashboard →", use_container_width=True, type="primary"):
-            st.session_state.page = "Dashboard"
-            st.rerun()
-    with col2:
-        if st.button("View Methodology", use_container_width=True):
-            st.session_state.page = "Methodology"
-            st.rerun()
+    st.markdown('<p class="section-title">Live Right Now</p>', unsafe_allow_html=True)
+    st.markdown('<p class="section-caption">Current AQI reading across all four cities</p>', unsafe_allow_html=True)
+
+    full_df = get_full_table()
+    snapshot_cols = st.columns(4)
+    for col, city in zip(snapshot_cols, CITIES):
+        city_df = full_df[full_df["city"] == city].sort_values("timestamp")
+        latest = city_df.iloc[-1]
+        category, color = classify_aqi(latest["aqi"])
+        with col:
+            st.markdown(
+                f"""<div class="metric-card" style="border-top: 4px solid {color};">
+                    <div class="metric-label">{CITY_DISPLAY_NAMES[city]}</div>
+                    <div class="metric-value" style="font-size:28px;">{latest['aqi']:.0f}</div>
+                    <div class="metric-sub" style="color:{color}; font-weight:600;">{category}</div>
+                </div>""", unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    if st.button("View Full Forecast →", use_container_width=True, type="primary"):
+        st.session_state.page = "Dashboard"
+        st.rerun()
 
 
 def render_current_metrics(latest_aqi: float, latest_timestamp, city_display: str):
